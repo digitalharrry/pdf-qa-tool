@@ -1,0 +1,7 @@
+streamlit
+pdfplumber
+python-docx
+rank-bm25
+scikit-learn
+google-generativeai
+requests
