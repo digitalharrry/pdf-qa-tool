@@ -9,7 +9,6 @@ import google.generativeai as genai
 from docx import Document as DocWriter
 from docx.shared import Pt, Inches
 from docx.enum.text import WD_ALIGN_PARAGRAPH
-from google.genai.errors import ServerError
 import requests
 import os
 
@@ -527,4 +526,5 @@ if st.button("Process and Generate Answers"):
             file_name="answers.docx",
             mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document"
         )
+
 
