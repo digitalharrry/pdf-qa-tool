@@ -5,7 +5,7 @@ import io
 from rank_bm25 import BM25Okapi
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
-import google.genai as genai
+import google.generativeai as genai
 from docx import Document as DocWriter
 from docx.shared import Pt, Inches
 from docx.enum.text import WD_ALIGN_PARAGRAPH
@@ -21,7 +21,7 @@ OPENROUTER_KEY = os.getenv("OPENROUTER_KEY")
 HF_TOKEN = os.getenv("HF_TOKEN")
 
 
-client = genai.Client(api_key=GEMINI_KEY)
+genai.configure(api_key=GEMINI_KEY)
 
 
 # ---------- BASIC HELPERS ----------
@@ -154,12 +154,12 @@ def search_answer(question, top_k=4):
 # =================================================
 def gen_gemini(prompt):
     try:
-        return client.models.generate_content(
-            model="models/gemini-2.5-flash",
-            contents=prompt
-        ).text
+        model = genai.GenerativeModel("gemini-1.5-flash")
+        response = model.generate_content(prompt)
+        return response.text
     except:
         return None
+
 
 
 def gen_deepseek(prompt):
@@ -527,3 +527,4 @@ if st.button("Process and Generate Answers"):
             file_name="answers.docx",
             mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document"
         )
+
